@@ -23,12 +23,9 @@ class HomeScreen extends React.Component {
     headerTitle:<LogoTitle/>,
     // 同时添加左右键 保证居中
     headerLeft:(
-      // 切换到模态页面？
-      <Button
-          onPress={() => navigation.navigate('MyModal')}
-          title="Info"
-          color="#000"
-        />
+      <Button onPress={()=>navigation.goBack()}
+      title ="Back"
+      color = "#000"   />
     ),
     // 添加一个右键
     headerRight:(
@@ -126,23 +123,9 @@ class DetailsScreen extends React.Component {
   }
 }
 
-// 模态页面
-class ModalScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 30 }}>This is a modal!</Text>
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title="Dismiss"
-        />
-      </View>
-    );
-  }
-}
 
 
-const MainStack = StackNavigator(
+const RootStack = StackNavigator(
   {
     Home: {
       screen: HomeScreen,
@@ -164,22 +147,6 @@ const MainStack = StackNavigator(
         alignSelf:'center',
       },
     },  // 这里有个逗号
-  }
-);
-
-// 另外建立一个栈   包含了原来的栈
-const RootStack = StackNavigator(
-  {
-    Main: {
-      screen: MainStack,
-    },
-    MyModal: {
-      screen: ModalScreen,
-    },
-  },
-  {
-    mode: 'modal',    // 这个对安卓没有效果  影响ios的切换动画
-    headerMode: 'none', // 如果不加，那么Main就会有两个导航栏了
   }
 );
 
