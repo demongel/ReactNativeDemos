@@ -60294,13 +60294,17 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
     }, {
       key: "getContactFromAndroid",
       value: function getContactFromAndroid() {
-        _reactNative.DeviceEventEmitter.addListener('AndroidToRNMessage', this.handleAndroidMsg.bind(this));
+        var _this3 = this;
 
         var _require2 = _require3(_dependencyMap[3], 'react-native'),
             NativeModules = _require2.NativeModules;
 
         var test = NativeModules.RNTest;
-        test.pickContact();
+        test.pickContact('testMsg').then(function (result) {
+          _this3.handleAndroidMsg(result);
+        }).catch(function (error) {
+          console.log(error + "msg = " + error.message + "code = " + error.code);
+        });
       }
     }, {
       key: "handleAndroidMsg",
@@ -60315,7 +60319,7 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
     }, {
       key: "render",
       value: function render() {
-        var _this3 = this;
+        var _this4 = this;
 
         return _react3.default.createElement(
           _reactNative.View,
@@ -60326,20 +60330,20 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 84
+              lineNumber: 97
             }
           },
           _react3.default.createElement(
             _reactNative.TextInput,
             {
               onChangeText: function onChangeText(name) {
-                _this3.updateName(name);
+                _this4.updateName(name);
               },
               placeholder: "\u8BF7\u8F93\u5165\u59D3\u540D",
               style: styles.inputStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 85
+                lineNumber: 98
               }
             },
             this.state.name
@@ -60348,13 +60352,13 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
             _reactNative.TextInput,
             {
               onChangeText: function onChangeText(num) {
-                _this3.updateNum(num);
+                _this4.updateNum(num);
               },
               placeholder: "\u8BF7\u8F93\u5165\u53F7\u7801",
               style: styles.inputStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 101
               }
             },
             this.state.num
@@ -60365,22 +60369,22 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
               style: styles.containerStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 91
+                lineNumber: 104
               }
             },
             _react3.default.createElement(_reactNative.Button, {
               title: "GO TO result",
               onPress: function onPress() {
-                console.log('name' + _this3.state.name);
+                console.log('name' + _this4.state.name);
 
-                _this3.props.navigation.navigate('result', {
-                  name: _this3.state.name,
-                  num: _this3.state.num
+                _this4.props.navigation.navigate('result', {
+                  name: _this4.state.name,
+                  num: _this4.state.num
                 });
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 92
+                lineNumber: 105
               }
             })
           ),
@@ -60390,17 +60394,17 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
               style: styles.containerStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 101
+                lineNumber: 114
               }
             },
             _react3.default.createElement(_reactNative.Button, {
               title: "\u7ED9\u539F\u751F\u53D1\u6D88\u606F",
               onPress: function onPress() {
-                return _this3.sendMsgToAndroid();
+                return _this4.sendMsgToAndroid();
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 102
+                lineNumber: 115
               }
             })
           ),
@@ -60410,17 +60414,17 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
               style: styles.containerStyle,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 108
+                lineNumber: 121
               }
             },
             _react3.default.createElement(_reactNative.Button, {
               title: "\u83B7\u53D6\u8054\u7CFB\u4EBA",
               onPress: function onPress() {
-                return _this3.getContactFromAndroid();
+                return _this4.getContactFromAndroid();
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 109
+                lineNumber: 122
               }
             })
           )
@@ -60493,7 +60497,7 @@ __d(function (global, _require3, module, exports, _dependencyMap) {
         return _react3.default.createElement(RootStack, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 159
+            lineNumber: 172
           }
         });
       }

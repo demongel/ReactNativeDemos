@@ -63,10 +63,23 @@ export class RegisterScreen extends React.Component {
 
   getContactFromAndroid(){
     // 监听安卓消息
-    DeviceEventEmitter.addListener('AndroidToRNMessage',this.handleAndroidMsg.bind(this));
+    // DeviceEventEmitter.addListener('AndroidToRNMessage',this.handleAndroidMsg.bind(this));
     var { NativeModules } = require('react-native');
     let test = NativeModules.RNTest;
-    test.pickContact();
+    // test.pickContact('testMsg');
+
+    // 使用promise方式时，上面不用再注册回调
+    test.pickContact('testMsg').then(
+      // 表示处理结果的回调
+      (result)=>{
+        this.handleAndroidMsg(result);
+      }
+    ).catch(
+      // 异常的处理
+      (error)=>{
+        console.log(error+"msg = "+ error.message + "code = "+ error.code);
+      }
+    );
   }
 
   handleAndroidMsg(msg){

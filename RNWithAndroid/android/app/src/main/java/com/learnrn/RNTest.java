@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -26,6 +28,8 @@ public class RNTest extends ReactContextBaseJavaModule {
     private static final String TAG = "RNTest";
     private ReactContext reactContext;
 
+    Promise mPromise;    // 使用promise方式的话，添加此行
+
     // 创建一个mActivityEventListener
     private ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
         @SuppressWarnings("deprecation")
@@ -41,7 +45,11 @@ public class RNTest extends ReactContextBaseJavaModule {
 
                 cursor.moveToFirst();    //
                 String msg = getInfo(cursor);
-                sendMsgToRN(msg);
+//                sendMsgToRN(msg);     // 发送消息的方式
+                // 使用Promise方式
+                if(msg!=null){
+                    mPromise.resolve(msg);
+                }
             }
         }
     };
@@ -92,7 +100,8 @@ public class RNTest extends ReactContextBaseJavaModule {
     // 自定义一个方法 处理消息
     // 通过注解  表示可以被RN侧调用
     @ReactMethod
-    public void handleMsg(String msg) {
+    public void handleMsg(String msg, Callback callback) {
+        // callback.invoke(msg);     // 回调函数方式
         Toast.makeText(reactContext, msg, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(reactContext, MyActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -100,7 +109,8 @@ public class RNTest extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void pickContact() {
+    public void pickContact(String msg,Promise promise) {
+        this.mPromise = promise;    // 使用Promise方式时添加，在这里初始化
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
         reactContext.startActivityForResult(intent, 1, null);
