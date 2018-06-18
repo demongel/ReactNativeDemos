@@ -1,7 +1,9 @@
 ﻿import React from 'react';
-import { TextInput,Button,View, Text } from 'react-native';
+import { TextInput,Button,View, Text,Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { styles } from './App';
+
+var MyImageView = require('./ImageView');
 
 // 定义一个标题
 class LogoTitle extends React.Component {
@@ -67,6 +69,9 @@ export default class ResultScreen extends React.Component {
         <Button style={styles.inputStyle}  title="返回" 
           onPress = {() => this.props.navigation.goBack()}
         />
+        <Image source={require('./apple.jpg')} />
+
+        <MyImageView borderRadius={1.0} src ={[{uri:'./apple.jpg'}]} />
       </View>
     );
   }

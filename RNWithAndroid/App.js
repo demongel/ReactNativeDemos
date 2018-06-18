@@ -2,7 +2,8 @@
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
 import { Alert, StyleSheet, Button, Text, View, TextInput,DeviceEventEmitter } from 'react-native';
 import PropTypes from 'prop-types';
-import ResultScreen from './Result'
+import ResultScreen from './Result';
+
 
 export class LogoTitle extends React.Component {
   render() {
@@ -58,7 +59,7 @@ export class RegisterScreen extends React.Component {
   sendMsgToAndroid() {
     var { NativeModules } = require('react-native');
     let test = NativeModules.RNTest;
-    test.handleMsg('this is a rn msg');
+    test.handleMsg('this is a rn msg',this.updateName);
   }
 
   getContactFromAndroid(){

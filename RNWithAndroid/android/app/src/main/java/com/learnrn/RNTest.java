@@ -18,6 +18,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -115,5 +120,6 @@ public class RNTest extends ReactContextBaseJavaModule {
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
         reactContext.startActivityForResult(intent, 1, null);
     }
+
 
 }
