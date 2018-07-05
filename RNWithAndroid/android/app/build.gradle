@@ -98,7 +98,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.learnrn"
+        applicationId "com.shakespace.rncontact"
         minSdkVersion 19
         versionCode 1
         versionName "1.0"
